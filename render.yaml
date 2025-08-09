@@ -1,0 +1,19 @@
+# Render Blueprint — despliegue del simulador ENARM (Node/Express)
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: simulador-enarm-svc
+    env: node
+    region: oregon            # us-west (latencia baja para MX). Puedes cambiarlo en el dashboard.
+    # plan: standard          # opcional; elige el plan en el dashboard si prefieres.
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MODEL
+        value: gpt-5
+      - key: OPENAI_API_KEY   # agrega el valor como Secret en el dashboard o via 'render secrets'
+        sync: false
